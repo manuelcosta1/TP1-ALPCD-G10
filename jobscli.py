@@ -1,11 +1,3 @@
-"""Configuration and helpers for the jobs API.
-
-This module exposes `API_CONFIG` which is a nested, extensible
-dictionary for the API base URL, API key and endpoints. It also
-provides helper functions to build full endpoint URLs and to add
-new endpoints at runtime.
-"""
-
 from urllib.parse import urljoin
 from typing import Dict, Any, Optional
 import requests
@@ -196,9 +188,13 @@ def version():
     """Print the CLI version."""
     typer.echo("""
             ╔═══════════════════════════╗
-            ║       Made by Gabriel     ║
+                     Feito por:
+                      Gabriel 
+                      Manuel
+                      Rodrigo
             ╚═══════════════════════════╝
                """)
 
 if __name__ == "__main__":
     app()
+
