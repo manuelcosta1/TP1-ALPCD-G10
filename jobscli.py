@@ -35,10 +35,7 @@ def _build_url(name: str) -> str:
 
 
 def _get_headers() -> Dict[str, str]:
-    """Return the default headers including API key and a browser-like User-Agent.
-
-    Pass `extra` to override or add to the defaults.
-    """
+    
     headers: Dict[str, str] = {}
 
     headers.setdefault(
@@ -50,10 +47,7 @@ def _get_headers() -> Dict[str, str]:
 
 
 def _get_params(extra_params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """Return the default params dict including the API key and limit.
-
-    `extra_params` will override or extend the defaults.
-    """
+    
     params: Dict[str, Any] = {}
     api_key = _get_api_key()
     if api_key:
@@ -80,7 +74,7 @@ app = typer.Typer()
 
 @app.command("top")
 def top(limit: int = typer.Argument(..., help="Number of jobs to fetch")):
-    """Fetch the top `limit` jobs using the `list` endpoint and print JSON."""
+    
     try:
         resp = list_jobs(limit)
         data = resp.json()
@@ -92,8 +86,7 @@ def top(limit: int = typer.Argument(..., help="Number of jobs to fetch")):
 
 
 def search_jobs(q: str, limit: int, extra_params: Optional[Dict[str, Any]] = None):
-    """Call the `search` endpoint with query `q` and return a `requests.Response`.
-    """
+
     params = _get_params(extra_params)
     params["limit"] = limit
     params["q"] = q
@@ -116,10 +109,7 @@ def search(
     contract: str = typer.Option(None, "--contract", help="Filter by contract type"),
     page: int = typer.Option(1, "--page", "-p", help="Page number (default: 1)"),
 ):
-    """Search jobs by query and optional filters.
 
-    CLI usage: `python jobscli.py search "QUERY" [--limit 20] [--company "X"] [--type "full-time"] [--contract "permanent"] [--page 2]`
-    """
     try:
         # Build extra params from optional filters
         extra = {}
@@ -142,7 +132,7 @@ def search(
 
 
 def get_job(job_id: str):
-    """Call the `get` endpoint to fetch job details by ID."""
+
     params = _get_params({"id": job_id})
     headers = _get_headers()
     
@@ -154,7 +144,7 @@ def get_job(job_id: str):
 
 
 def extract_work_regime(job_data: Dict[str, Any]) -> str:
-    """Extract work regime (remote/hybrid/on-site/other) from job data."""
+
     text = json.dumps(job_data).lower()
     
     # Patterns for different work regimes
@@ -170,10 +160,7 @@ def extract_work_regime(job_data: Dict[str, Any]) -> str:
 
 @app.command("type")
 def work_type(job_id: str = typer.Argument(..., help="Job ID (required)")):
-    """Extract work regime from a specific job.
     
-    CLI usage: `python jobscli.py type 12345`
-    """
     try:
         resp = get_job(job_id)
         data = resp.json()
@@ -197,4 +184,5 @@ def version():
 
 if __name__ == "__main__":
     app()
+
 
