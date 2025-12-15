@@ -13,3 +13,10 @@ expected: hybrid, remote, etc
 4. python jobscli.py skills dataInicial dataFinal (yyyy-mm-dd)
 
 5. adicionar comando --csv a seguir
+
+Trabalho Prático 2
+
+1.python jobs.py get jobID
+2.python jobs.py statistics zone
+3.TBD
+4.--csv nome.csv
